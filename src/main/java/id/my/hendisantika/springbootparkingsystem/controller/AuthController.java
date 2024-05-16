@@ -1,6 +1,7 @@
 package id.my.hendisantika.springbootparkingsystem.controller;
 
 import id.my.hendisantika.springbootparkingsystem.payload.request.LoginRequest;
+import id.my.hendisantika.springbootparkingsystem.payload.request.SignupRequest;
 import id.my.hendisantika.springbootparkingsystem.repository.RoleRepository;
 import id.my.hendisantika.springbootparkingsystem.repository.UserRepository;
 import id.my.hendisantika.springbootparkingsystem.security.jwt.JwtUtils;
@@ -46,5 +47,10 @@ public class AuthController {
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         return userService.authenticateUser(loginRequest);
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+        return userService.registerUser(signUpRequest);
     }
 }
