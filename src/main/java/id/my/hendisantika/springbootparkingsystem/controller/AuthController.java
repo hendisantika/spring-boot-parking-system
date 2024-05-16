@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -64,5 +66,10 @@ public class AuthController {
     @GetMapping("/details/{username}")
     public ResponseEntity<?> getUserDetails(@PathVariable("username") String username) {
         return userService.getUserDetails(username);
+    }
+
+    @RequestMapping(value = "/confirm-account", method = {RequestMethod.GET, RequestMethod.POST})
+    public ResponseEntity<?> confirmUserAccount(@RequestParam("token") String confirmationToken) {
+        return userService.confirmEmail(confirmationToken);
     }
 }
