@@ -1,6 +1,7 @@
 package id.my.hendisantika.springbootparkingsystem.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
@@ -26,5 +27,15 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
+
+    @Bean
+    public AuthTokenFilter authenticationJwtTokenFilter() {
+        return new AuthTokenFilter();
+    }
+
+//  @Override
+//  public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+//    authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+//  }
 
 }
