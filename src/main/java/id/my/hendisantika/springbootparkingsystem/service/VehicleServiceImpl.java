@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : spring-boot-parking-system
@@ -30,5 +32,16 @@ public class VehicleServiceImpl implements VehicleService {
 
         vehicleRepository.save(vehicle);
         return ResponseEntity.ok(new MessageResponse("Vehicle added successfully!"));
+    }
+
+    @Override
+    public ResponseEntity<?> findVehicleByUser(String username) {
+        List<Vehicle> allVehicles = vehicleRepository.findByUsername(username);
+
+        if (allVehicles.isEmpty()) {
+            return ResponseEntity.ok("User owns no vehicle");
+        }
+
+        return ResponseEntity.ok(allVehicles);
     }
 }
