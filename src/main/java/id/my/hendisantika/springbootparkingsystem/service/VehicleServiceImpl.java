@@ -1,7 +1,9 @@
 package id.my.hendisantika.springbootparkingsystem.service;
 
+import id.my.hendisantika.springbootparkingsystem.entity.Vehicle;
 import id.my.hendisantika.springbootparkingsystem.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,4 +21,14 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Autowired
     private VehicleRepository vehicleRepository;
+
+    @Override
+    public ResponseEntity<?> addVehicle(Vehicle vehicle) {
+        if (vehicleRepository.findByRegisterationNumber(vehicle.getRegisterationNumber()).isPresent()) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: Vehicle is already registered!"));
+        }
+
+        vehicleRepository.save(vehicle);
+        return ResponseEntity.ok(new MessageResponse("Vehicle added successfully!"));
+    }
 }
