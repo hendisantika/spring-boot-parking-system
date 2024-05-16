@@ -1,7 +1,12 @@
 package id.my.hendisantika.springbootparkingsystem.controller;
 
+import id.my.hendisantika.springbootparkingsystem.entity.ParkingSlot;
 import id.my.hendisantika.springbootparkingsystem.service.ParkingSlotService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,4 +27,8 @@ public class ParkingSlotController {
 
     private final ParkingSlotService parkingSlotService;
 
+    @PostMapping("/add")
+    public ResponseEntity<?> addParkingSlot(@Valid @RequestBody ParkingSlot parkingSlot) {
+        return parkingSlotService.addParkingSlot(parkingSlot);
+    }
 }
