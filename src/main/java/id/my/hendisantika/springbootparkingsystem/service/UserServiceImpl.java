@@ -156,4 +156,16 @@ public class UserServiceImpl implements UserService {
         return ResponseEntity.ok(user);
     }
 
+    @Override
+    public ResponseEntity<?> confirmEmail(String confirmationToken) {
+        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+
+        if (token != null) {
+            User user = userRepository.findByEmailIgnoreCase(token.getUserEntity().getEmail());
+            user.setEnabled(true);
+            userRepository.save(user);
+            return ResponseEntity.ok(new MessageResponse("Email verified successfully!"));
+        }
+        return ResponseEntity.badRequest().body(new MessageResponse("Error: Couldn't verify email"));
+    }
 }
