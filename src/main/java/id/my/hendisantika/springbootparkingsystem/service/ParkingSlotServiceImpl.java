@@ -1,10 +1,14 @@
 package id.my.hendisantika.springbootparkingsystem.service;
 
+import id.my.hendisantika.springbootparkingsystem.entity.ParkingSlot;
 import id.my.hendisantika.springbootparkingsystem.repository.HistoryRepository;
 import id.my.hendisantika.springbootparkingsystem.repository.ParkingSlotRepository;
 import id.my.hendisantika.springbootparkingsystem.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * Created by IntelliJ IDEA.
@@ -27,4 +31,14 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
 
     @Autowired
     private VehicleRepository vehicleRepository;
+
+    @Override
+    public ResponseEntity<?> addParkingSlot(ParkingSlot parkingSlot) {
+        Optional<ParkingSlot> parkingSlot1 = parkingSlotRepository.findByName(parkingSlot.getName());
+        if (parkingSlot1.isPresent()) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Error: Parking Slot exist!"));
+        }
+        parkingSlotRepository.save(parkingSlot);
+        return ResponseEntity.ok(new MessageResponse("Parking Slot added successfully!"));
+    }
 }
