@@ -38,4 +38,9 @@ public class ParkingSlotController {
     public ResponseEntity<?> findParkingSlotByName(@PathVariable("name") String name) {
         return parkingSlotService.findParkingSlotByName(name);
     }
+
+    @GetMapping("/floor/{floor}")
+    public ResponseEntity<?> findParkingSlotByFloor(@PathVariable("floor") String floor) {
+        return parkingSlotService.findParkingSlotByFloor(floor);
+    }
 }
