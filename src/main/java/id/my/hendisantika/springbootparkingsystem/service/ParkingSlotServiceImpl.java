@@ -121,4 +121,13 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
         return ResponseEntity.ok("Parking slot is already free");
     }
 
+    @Override
+    public ResponseEntity<?> findEmptyParkingSlot() {
+        List<ParkingSlot> parkingSlots = parkingSlotRepository.findEmpyParkingSlot();
+
+        if (parkingSlots.isEmpty()) {
+            return ResponseEntity.ok("No free parking slots available");
+        }
+        return ResponseEntity.ok(parkingSlots);
+    }
 }
