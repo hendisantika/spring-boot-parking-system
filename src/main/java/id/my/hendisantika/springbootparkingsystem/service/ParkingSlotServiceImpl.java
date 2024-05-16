@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -50,5 +51,12 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
         }
 
         return ResponseEntity.ok("No parking slot present with name: " + name);
+    }
+
+    @Override
+    public ResponseEntity<?> findParkingSlotByFloor(String floor) {
+        List<ParkingSlot> allParkingSlotOnFloor = parkingSlotRepository.findByFloor(floor);
+
+        return ResponseEntity.ok(allParkingSlotOnFloor);
     }
 }
