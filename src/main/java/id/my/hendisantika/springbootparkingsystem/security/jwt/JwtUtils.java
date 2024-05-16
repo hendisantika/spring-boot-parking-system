@@ -1,8 +1,11 @@
 package id.my.hendisantika.springbootparkingsystem.security.jwt;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.WebUtils;
 
 /**
  * Created by IntelliJ IDEA.
@@ -26,4 +29,13 @@ public class JwtUtils {
 
     @Value("${deep.app.jwtCookieName}")
     private String jwtCookie;
+
+    public String getJwtFromCookies(HttpServletRequest request) {
+        Cookie cookie = WebUtils.getCookie(request, jwtCookie);
+        if (cookie != null) {
+            return cookie.getValue();
+        } else {
+            return null;
+        }
+    }
 }
