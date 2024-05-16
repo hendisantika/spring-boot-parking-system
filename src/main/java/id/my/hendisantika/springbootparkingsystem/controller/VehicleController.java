@@ -5,6 +5,8 @@ import id.my.hendisantika.springbootparkingsystem.service.VehicleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,5 +32,10 @@ public class VehicleController {
     @PostMapping("/add")
     public ResponseEntity<?> addVehicle(@Valid @RequestBody Vehicle vehicle) {
         return vehicleService.addVehicle(vehicle);
+    }
+
+    @GetMapping("/user/{username}")
+    public ResponseEntity<?> findVehicleByUser(@PathVariable("username") String username) {
+        return vehicleService.findVehicleByUser(username);
     }
 }
