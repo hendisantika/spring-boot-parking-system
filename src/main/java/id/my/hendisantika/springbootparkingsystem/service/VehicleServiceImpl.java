@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by IntelliJ IDEA.
@@ -43,5 +44,12 @@ public class VehicleServiceImpl implements VehicleService {
         }
 
         return ResponseEntity.ok(allVehicles);
+    }
+
+    @Override
+    public ResponseEntity<?> findVehicleByRegistrationNumber(String registerationNumber) {
+        Optional<Vehicle> vehicle = vehicleRepository.findByRegisterationNumber(registerationNumber);
+
+        return ResponseEntity.ok(vehicle);
     }
 }
