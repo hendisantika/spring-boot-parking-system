@@ -3,6 +3,7 @@ package id.my.hendisantika.springbootparkingsystem.service;
 import id.my.hendisantika.springbootparkingsystem.entity.ConfirmationToken;
 import id.my.hendisantika.springbootparkingsystem.entity.ERole;
 import id.my.hendisantika.springbootparkingsystem.entity.Role;
+import id.my.hendisantika.springbootparkingsystem.entity.User;
 import id.my.hendisantika.springbootparkingsystem.repository.ConfirmationTokenRepository;
 import id.my.hendisantika.springbootparkingsystem.repository.RoleRepository;
 import id.my.hendisantika.springbootparkingsystem.repository.UserRepository;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -146,6 +148,12 @@ public class UserServiceImpl implements UserService {
         ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
                 .body(new MessageResponse("You've been signed out!"));
+    }
+
+    @Override
+    public ResponseEntity<?> getUserDetails(String username) {
+        Optional<User> user = userRepository.findByUsername(username);
+        return ResponseEntity.ok(user);
     }
 
 }
