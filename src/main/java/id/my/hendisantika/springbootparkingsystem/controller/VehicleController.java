@@ -38,4 +38,9 @@ public class VehicleController {
     public ResponseEntity<?> findVehicleByUser(@PathVariable("username") String username) {
         return vehicleService.findVehicleByUser(username);
     }
+
+    @GetMapping("/regnum/{registerationNumber}")
+    public ResponseEntity<?> findVehicleByRegistrationNumber(@PathVariable("registerationNumber") String registerationNumber) {
+        return vehicleService.findVehicleByRegistrationNumber(registerationNumber);
+    }
 }
