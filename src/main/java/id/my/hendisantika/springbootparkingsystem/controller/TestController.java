@@ -36,4 +36,10 @@ public class TestController {
     public String moderatorAccess() {
         return "Moderator Board.";
     }
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String adminAccess() {
+        return "Admin Board.";
+    }
 }
