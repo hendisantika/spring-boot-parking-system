@@ -1,5 +1,6 @@
 package id.my.hendisantika.springbootparkingsystem.service;
 
+import id.my.hendisantika.springbootparkingsystem.entity.History;
 import id.my.hendisantika.springbootparkingsystem.entity.ParkingSlot;
 import id.my.hendisantika.springbootparkingsystem.entity.Vehicle;
 import id.my.hendisantika.springbootparkingsystem.repository.HistoryRepository;
@@ -91,4 +92,33 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
         }
         return ResponseEntity.ok("No such parking slot present with id" + parkingRequest.getId());
     }
+
+    @Override
+    public ResponseEntity<?> deallocateParkingSlot(Long id) {
+        Optional<ParkingSlot> parkingSlot = parkingSlotRepository.findById(id);
+
+        if (parkingSlot.isPresent()) {
+            ParkingSlot parkingSlot1 = parkingSlot.get();
+            if (parkingSlot1.getUsername() == null) {
+                return ResponseEntity.badRequest().body(new MessageResponse("Parking Slot already empty"));
+            }
+
+            History history = new History();
+            history.setParkingSlotId(parkingSlot1.getId());
+            history.setParkingSlotName(parkingSlot1.getName());
+            history.setUsername(parkingSlot1.getUsername());
+            history.setVehicleRegisterationNumber(parkingSlot1.getVehicleRegisterationNumber());
+            history.setEntryTime(parkingSlot1.getEntryTime());
+            history.setExitTime(LocalDateTime.now());
+            historyRepository.save(history);
+
+            parkingSlot1.setUsername(null);
+            parkingSlot1.setVehicleRegisterationNumber(null);
+            parkingSlot1.setEntryTime(null);
+            parkingSlotRepository.save(parkingSlot1);
+            return ResponseEntity.ok(new MessageResponse("Parking Slot now free!"));
+        }
+        return ResponseEntity.ok("Parking slot is already free");
+    }
+
 }
