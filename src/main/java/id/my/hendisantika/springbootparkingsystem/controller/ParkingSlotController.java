@@ -1,6 +1,7 @@
 package id.my.hendisantika.springbootparkingsystem.controller;
 
 import id.my.hendisantika.springbootparkingsystem.entity.ParkingSlot;
+import id.my.hendisantika.springbootparkingsystem.payload.request.ParkingRequest;
 import id.my.hendisantika.springbootparkingsystem.service.ParkingSlotService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -42,5 +43,10 @@ public class ParkingSlotController {
     @GetMapping("/floor/{floor}")
     public ResponseEntity<?> findParkingSlotByFloor(@PathVariable("floor") String floor) {
         return parkingSlotService.findParkingSlotByFloor(floor);
+    }
+
+    @PostMapping("/park")
+    public ResponseEntity<?> allocateParkingSlotToUser(@Valid @RequestBody ParkingRequest parkingRequest) {
+        return parkingSlotService.allocateParkingSlotToUser(parkingRequest);
     }
 }
