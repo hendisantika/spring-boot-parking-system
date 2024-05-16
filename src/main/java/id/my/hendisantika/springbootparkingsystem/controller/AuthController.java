@@ -1,13 +1,18 @@
 package id.my.hendisantika.springbootparkingsystem.controller;
 
+import id.my.hendisantika.springbootparkingsystem.payload.request.LoginRequest;
 import id.my.hendisantika.springbootparkingsystem.repository.RoleRepository;
 import id.my.hendisantika.springbootparkingsystem.repository.UserRepository;
 import id.my.hendisantika.springbootparkingsystem.security.jwt.JwtUtils;
 import id.my.hendisantika.springbootparkingsystem.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,4 +42,9 @@ public class AuthController {
     private final JwtUtils jwtUtils;
 
     private final UserService userService;
+
+    @PostMapping("/signin")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        return userService.authenticateUser(loginRequest);
+    }
 }
