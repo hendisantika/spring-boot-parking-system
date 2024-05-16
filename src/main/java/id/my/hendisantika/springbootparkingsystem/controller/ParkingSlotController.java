@@ -54,4 +54,9 @@ public class ParkingSlotController {
     public ResponseEntity<?> deallocateParkingSlotToUser(@PathVariable("id") Long id) {
         return parkingSlotService.deallocateParkingSlot(id);
     }
+
+    @GetMapping("/empty")
+    public ResponseEntity<?> findEmptyParkingSlot() {
+        return parkingSlotService.findEmptyParkingSlot();
+    }
 }
