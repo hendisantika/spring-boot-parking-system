@@ -1,6 +1,7 @@
 package id.my.hendisantika.springbootparkingsystem.service;
 
 import id.my.hendisantika.springbootparkingsystem.entity.ParkingSlot;
+import id.my.hendisantika.springbootparkingsystem.entity.Vehicle;
 import id.my.hendisantika.springbootparkingsystem.repository.HistoryRepository;
 import id.my.hendisantika.springbootparkingsystem.repository.ParkingSlotRepository;
 import id.my.hendisantika.springbootparkingsystem.repository.VehicleRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,5 +60,35 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
         List<ParkingSlot> allParkingSlotOnFloor = parkingSlotRepository.findByFloor(floor);
 
         return ResponseEntity.ok(allParkingSlotOnFloor);
+    }
+
+    @Override
+    public ResponseEntity<?> allocateParkingSlotToUser(ParkingRequest parkingRequest) {
+        Optional<ParkingSlot> parkingSlot = parkingSlotRepository.findById(parkingRequest.getId());
+        if (parkingSlot.isPresent()) {
+            ParkingSlot parkingSlot1 = parkingSlot.get();
+
+            if (parkingSlot1.getUsername() != null) {
+                return ResponseEntity.badRequest().body(new MessageResponse("Parking Slot already occupied"));
+            }
+
+            Optional<Vehicle> vehicle = vehicleRepository.findByRegisterationNumber(parkingRequest.getVehicleRegisterationNumber());
+            if (vehicle.isPresent()) {
+                Vehicle vehicle1 = vehicle.get();
+                System.out.println(vehicle1.getUsername());
+                if (parkingSlot1.getSize() != vehicle1.getSize()) {
+                    return ResponseEntity.badRequest().body(new MessageResponse("Vehicle size and slot size must be same"));
+                }
+            } else {
+                ResponseEntity.ok("No such vehicle exist!");
+            }
+
+            parkingSlot1.setUsername(parkingRequest.getUsername());
+            parkingSlot1.setVehicleRegisterationNumber(parkingRequest.getVehicleRegisterationNumber());
+            parkingSlot1.setEntryTime(LocalDateTime.now());
+            parkingSlotRepository.save(parkingSlot1);
+            return ResponseEntity.ok(new MessageResponse("Parking Slot assigned to !" + parkingRequest.getUsername()));
+        }
+        return ResponseEntity.ok("No such parking slot present with id" + parkingRequest.getId());
     }
 }
