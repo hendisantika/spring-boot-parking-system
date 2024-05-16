@@ -41,4 +41,14 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
         parkingSlotRepository.save(parkingSlot);
         return ResponseEntity.ok(new MessageResponse("Parking Slot added successfully!"));
     }
+
+    @Override
+    public ResponseEntity<?> findParkingSlotByName(String name) {
+        Optional<ParkingSlot> parkingSlot = parkingSlotRepository.findByName(name);
+        if (parkingSlot.isPresent()) {
+            return ResponseEntity.ok(parkingSlot);
+        }
+
+        return ResponseEntity.ok("No parking slot present with name: " + name);
+    }
 }
