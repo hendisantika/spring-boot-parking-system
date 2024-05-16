@@ -1,5 +1,6 @@
 package id.my.hendisantika.springbootparkingsystem.security.jwt;
 
+import id.my.hendisantika.springbootparkingsystem.service.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

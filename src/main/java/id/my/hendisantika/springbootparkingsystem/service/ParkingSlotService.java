@@ -1,6 +1,7 @@
 package id.my.hendisantika.springbootparkingsystem.service;
 
 import id.my.hendisantika.springbootparkingsystem.entity.ParkingSlot;
+import id.my.hendisantika.springbootparkingsystem.payload.request.ParkingRequest;
 import org.springframework.http.ResponseEntity;
 
 /**

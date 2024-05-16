@@ -11,6 +11,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import lombok.Data;
 
 import java.util.Date;
 import java.util.UUID;
@@ -27,6 +28,7 @@ import java.util.UUID;
  */
 @Entity
 @Table(name = "confirmationToken")
+@Data
 public class ConfirmationToken {
 
     @Id
@@ -53,4 +55,11 @@ public class ConfirmationToken {
         confirmationToken = UUID.randomUUID().toString();
     }
 
+    public User getUserEntity() {
+        return user;
+    }
+
+    public void setUserEntity(User user) {
+        this.user = user;
+    }
 }

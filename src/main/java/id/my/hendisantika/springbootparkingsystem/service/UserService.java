@@ -1,5 +1,7 @@
 package id.my.hendisantika.springbootparkingsystem.service;
 
+import id.my.hendisantika.springbootparkingsystem.payload.request.LoginRequest;
+import id.my.hendisantika.springbootparkingsystem.payload.request.SignupRequest;
 import org.springframework.http.ResponseEntity;
 
 /**

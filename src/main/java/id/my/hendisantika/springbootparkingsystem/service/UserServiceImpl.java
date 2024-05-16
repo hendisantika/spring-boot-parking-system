@@ -4,6 +4,10 @@ import id.my.hendisantika.springbootparkingsystem.entity.ConfirmationToken;
 import id.my.hendisantika.springbootparkingsystem.entity.ERole;
 import id.my.hendisantika.springbootparkingsystem.entity.Role;
 import id.my.hendisantika.springbootparkingsystem.entity.User;
+import id.my.hendisantika.springbootparkingsystem.payload.request.LoginRequest;
+import id.my.hendisantika.springbootparkingsystem.payload.request.SignupRequest;
+import id.my.hendisantika.springbootparkingsystem.payload.response.MessageResponse;
+import id.my.hendisantika.springbootparkingsystem.payload.response.UserInfoResponse;
 import id.my.hendisantika.springbootparkingsystem.repository.ConfirmationTokenRepository;
 import id.my.hendisantika.springbootparkingsystem.repository.RoleRepository;
 import id.my.hendisantika.springbootparkingsystem.repository.UserRepository;
@@ -74,7 +78,7 @@ public class UserServiceImpl implements UserService {
                         userDetails.getUsername(),
                         userDetails.getEmail(),
                         userDetails.getMobile(),
-                        userDetails.getDrivingLisence(),
+                        userDetails.getDrivingLicense(),
                         roles));
     }
 
@@ -93,7 +97,7 @@ public class UserServiceImpl implements UserService {
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()),
                 signUpRequest.getMobile(),
-                signUpRequest.getDrivingLisence());
+                signUpRequest.getDrivingLicense());
 
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();

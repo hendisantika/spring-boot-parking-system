@@ -1,5 +1,6 @@
 package id.my.hendisantika.springbootparkingsystem.security.jwt;
 
+import id.my.hendisantika.springbootparkingsystem.service.UserDetailsImpl;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;

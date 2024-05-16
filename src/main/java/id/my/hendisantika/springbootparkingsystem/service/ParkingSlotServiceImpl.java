@@ -3,6 +3,8 @@ package id.my.hendisantika.springbootparkingsystem.service;
 import id.my.hendisantika.springbootparkingsystem.entity.History;
 import id.my.hendisantika.springbootparkingsystem.entity.ParkingSlot;
 import id.my.hendisantika.springbootparkingsystem.entity.Vehicle;
+import id.my.hendisantika.springbootparkingsystem.payload.request.ParkingRequest;
+import id.my.hendisantika.springbootparkingsystem.payload.response.MessageResponse;
 import id.my.hendisantika.springbootparkingsystem.repository.HistoryRepository;
 import id.my.hendisantika.springbootparkingsystem.repository.ParkingSlotRepository;
 import id.my.hendisantika.springbootparkingsystem.repository.VehicleRepository;
@@ -73,7 +75,7 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
                 return ResponseEntity.badRequest().body(new MessageResponse("Parking Slot already occupied"));
             }
 
-            Optional<Vehicle> vehicle = vehicleRepository.findByRegisterationNumber(parkingRequest.getVehicleRegisterationNumber());
+            Optional<Vehicle> vehicle = vehicleRepository.findByRegisterationNumber(parkingRequest.getVehicleRegistrationNumber());
             if (vehicle.isPresent()) {
                 Vehicle vehicle1 = vehicle.get();
                 System.out.println(vehicle1.getUsername());
@@ -85,7 +87,7 @@ public class ParkingSlotServiceImpl implements ParkingSlotService {
             }
 
             parkingSlot1.setUsername(parkingRequest.getUsername());
-            parkingSlot1.setVehicleRegisterationNumber(parkingRequest.getVehicleRegisterationNumber());
+            parkingSlot1.setVehicleRegisterationNumber(parkingRequest.getVehicleRegistrationNumber());
             parkingSlot1.setEntryTime(LocalDateTime.now());
             parkingSlotRepository.save(parkingSlot1);
             return ResponseEntity.ok(new MessageResponse("Parking Slot assigned to !" + parkingRequest.getUsername()));

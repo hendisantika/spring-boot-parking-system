@@ -1,6 +1,7 @@
 package id.my.hendisantika.springbootparkingsystem.service;
 
 import id.my.hendisantika.springbootparkingsystem.entity.Vehicle;
+import id.my.hendisantika.springbootparkingsystem.payload.response.MessageResponse;
 import id.my.hendisantika.springbootparkingsystem.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
