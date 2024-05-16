@@ -140,4 +140,12 @@ public class UserServiceImpl implements UserService {
 
         return ResponseEntity.ok(new MessageResponse("Verify email by the link sent on your email address"));
     }
+
+    @Override
+    public ResponseEntity<?> logoutUser() {
+        ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .body(new MessageResponse("You've been signed out!"));
+    }
+
 }
